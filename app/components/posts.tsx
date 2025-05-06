@@ -6,6 +6,7 @@ export function BlogPosts() {
 
   return (
     <div>
+      <h2 className="mb-4 text-2xl font-semibold tracking-tighter">Blog posts</h2>
       {allBlogs
         .sort((a, b) => {
           if (new Date(a.metadata.publishedAt) > new Date(b.metadata.publishedAt)) {
