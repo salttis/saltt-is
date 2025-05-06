@@ -11,6 +11,7 @@ const navItems = {
     name: "CV",
     target: "_blank",
     rel: "noopener noreferrer",
+    prefetch: false,
   },
 };
 
