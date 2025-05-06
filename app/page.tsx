@@ -9,9 +9,11 @@ export default function Page() {
       <p className="mb-4">{`I’ve led cross-functional teams, architected full-stack systems, and shipped products that balance technical excellence with business impact. I care about clean code, thoughtful abstractions, and a deep understanding of the problem before jumping to solutions. My work spans real-time infrastructure, developer tooling, and complex UIs — always aiming for outcomes, not overengineering.`}</p>
       <p className="mb-4">{`I’m driven by the challenge of turning ambitious ideas into elegant, working software — and helping others do the same.`}</p>
       <div className="my-8">
+        <h2 className="mb-4 text-2xl font-semibold tracking-tighter">Blog posts</h2>
         <BlogPosts />
       </div>
       <div className="my-8">
+        <h2 className="mb-4 text-2xl font-semibold tracking-tighter">Experiments &amp; demos</h2>
         <Experiments />
       </div>
     </section>
