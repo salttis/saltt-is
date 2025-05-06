@@ -19,9 +19,7 @@ export function Experiments() {
         </Link>
       ))}
       <div className="w-full flex flex-col md:flex-row space-x-0 md:space-x-2">
-        <p className="text-neutral-400 dark:text-neutral-600 tracking-tight text-sm">
-          More experiments and demos soon!
-        </p>
+        <p className="text-neutral-400 dark:text-neutral-600 tracking-tight text-sm">More soon!</p>
       </div>
     </div>
   );
