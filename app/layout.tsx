@@ -14,12 +14,14 @@ export const metadata: Metadata = {
     default: "Portfolio of Juri Saltbacka",
     template: "%s | Portfolio of Juri Saltbacka",
   },
-  description: "This is my portfolio.",
+  description:
+    "a Software Engineering Lead with a passion for building focused, scalable systems and guiding teams toward delivering real value with minimal overhead. I take a pragmatic approach to Extreme Programming, emphasizing simplicity, collaboration, and fast feedback loops over ceremony and bloat.",
   openGraph: {
-    title: "My Portfolio",
-    description: "This is my portfolio.",
+    title: "Portfolio of Juri Saltbacka",
+    description:
+      "a Software Engineering Lead with a passion for building focused, scalable systems and guiding teams toward delivering real value with minimal overhead. I take a pragmatic approach to Extreme Programming, emphasizing simplicity, collaboration, and fast feedback loops over ceremony and bloat.",
     url: baseUrl,
-    siteName: "My Portfolio",
+    siteName: "Portfolio of Juri Saltbacka",
     locale: "en_US",
     type: "website",
   },
