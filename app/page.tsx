@@ -1,4 +1,5 @@
 import { BlogPosts } from "app/components/posts";
+import { Experiments } from "app/components/experiments";
 
 export default function Page() {
   return (
@@ -9,6 +10,9 @@ export default function Page() {
       <p className="mb-4">{`I’m driven by the challenge of turning ambitious ideas into elegant, working software — and helping others do the same.`}</p>
       <div className="my-8">
         <BlogPosts />
+      </div>
+      <div className="my-8">
+        <Experiments />
       </div>
     </section>
   );
