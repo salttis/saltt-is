@@ -15,11 +15,11 @@ export const metadata: Metadata = {
     template: "%s | Portfolio of Juri Saltbacka",
   },
   description:
-    "a Software Engineering Lead with a passion for building focused, scalable systems and guiding teams toward delivering real value with minimal overhead. I take a pragmatic approach to Extreme Programming, emphasizing simplicity, collaboration, and fast feedback loops over ceremony and bloat.",
+    "I’m a “Full Power” Senior Software Engineer and Lead with a passion for building focused, scalable systems and guiding teams toward delivering real value with minimal overhead. I take a pragmatic approach to Extreme Programming, emphasizing simplicity, collaboration, and fast feedback loops over ceremony and bloat.",
   openGraph: {
     title: "Portfolio of Juri Saltbacka",
     description:
-      "a Software Engineering Lead with a passion for building focused, scalable systems and guiding teams toward delivering real value with minimal overhead. I take a pragmatic approach to Extreme Programming, emphasizing simplicity, collaboration, and fast feedback loops over ceremony and bloat.",
+      "I’m a “Full Power” Senior Software Engineer and Lead with a passion for building focused, scalable systems and guiding teams toward delivering real value with minimal overhead. I take a pragmatic approach to Extreme Programming, emphasizing simplicity, collaboration, and fast feedback loops over ceremony and bloat.",
     url: baseUrl,
     siteName: "Portfolio of Juri Saltbacka",
     locale: "en_US",
