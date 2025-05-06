@@ -1,0 +1,126 @@
+---
+title: "Quick Look Into Dotfiles — How I Set Up My Laptop"
+summary: "Learn how I automated the setup of my development environment using shell scripts, Homebrew, and a curated Zsh setup."
+published: true
+publishedAt: "2024-07-04"
+author: salttis
+---
+
+# Quick Look Into Dotfiles
+
+## How I Set Up My Laptop
+
+I used to think dotfiles were something only configuration maximalists and Vim wizards cared about. That changed after one of my trainees reintroduced me to the idea—this time with actual use cases and a sense of purpose.
+
+Now I use dotfiles for everything. My laptop was the perfect excuse to refine and automate the full setup process.
+
+This is a breakdown of how my dotfiles work and how you can fork and adapt them to suit your own workflow.
+
+## What Are Dotfiles?
+
+Dotfiles are a way to recreate your entire development environment with a single command. You run a script, and in a few minutes, your terminal, tools, OS preferences, workspace folders, SSH keys, and development tools are configured exactly how you want them.
+
+The same environment. Every time.
+
+No more "day zero" confusion. Just boot, run, and code.
+
+## Setup Flow Overview
+
+My dotfiles automate the following steps:
+
+### 1. Initial Checks
+
+- Determine system architecture
+- Self-update the dotfiles repository
+- Prompt and validate sudo privileges
+
+### 2. Developer Essentials
+
+- Install Xcode and Command Line Tools
+- Install Rosetta for Apple Silicon if necessary
+
+### 3. Shell & Terminal Setup
+
+Creates symbolic links for `.zshrc` and other dotfiles. Configures:
+
+- Common aliases and exports
+- Zsh plugins using [Zinit](https://github.com/zdharma-continuum/zinit)
+  - `lukechilds/zsh-nvm`: Lightweight Node.js version manager
+  - `zdharma-continuum/history-search-multi-word`: Better fuzzy search
+  - `zsh-users/zsh-autosuggestions`: Fish-like autosuggestions
+  - `zdharma-continuum/fast-syntax-highlighting`: Syntax highlighting
+  - `starship/starship`: Prompt theming engine
+
+### 4. Shared XDG Configuration
+
+Creates shared configuration folders using the XDG spec. Example configs are copied (not symlinked) to allow per-system customization.
+
+### 5. Application Installation
+
+Uses a [Homebrew Bundle](https://github.com/Homebrew/homebrew-bundle) to install:
+
+- CLI tools
+- GUI applications via Cask
+- Developer fonts
+- Visual Studio Code extensions
+
+### 6. macOS Customization
+
+Runs custom scripts to apply:
+
+- Sensible macOS system defaults
+- App Store application installations
+- Dock and desktop behavior tweaks
+
+For more on macOS defaults, see [macos-defaults.com](https://macos-defaults.com/).
+
+### 7. Workspace Setup
+
+- Creates required folders (Projects, Playground, etc.)
+- Installs Node.js LTS using NVM
+- Installs global Node.js tools via Volta
+- Synchronizes SSH keys from iCloud
+
+### 8. System Updates
+
+Final step checks for system and software updates.
+
+## Why Bother?
+
+Because having a consistent, working environment lets you focus on what matters. Dotfiles:
+
+- Reduce onboarding time
+- Improve system reliability
+- Prevent environment drift
+- Encourage automation and script literacy
+
+You don’t need to remember which plugins you used or how your terminal looked—you codify it once and re-use it forever.
+
+## Toolbox Analogy
+
+Imagine you're a carpenter. Every time you get project, you throw your tools into a bag with no labels and no compartments.
+
+Dotfiles are your organized toolbox: every tool in its place, ready when you need it.
+
+## Gotchas and Advice
+
+- Stick with **iTerm2** or **Terminal**. Don’t fall for YouTube S-tier terminal hype.
+- Don’t overcomplicate with too many plugins or customizations.
+- Keep secrets and machine-specific config separate.
+- Test each part of the script in isolation before combining.
+
+## Want to Try It?
+
+The repo is public. Fork it, clone it, or copy what you need:
+
+[https://github.com/salttis/dotfiles](https://github.com/salttis/dotfiles)
+
+If it helps, drop a star or open a pull request.
+
+---
+
+```bash
+git clone https://github.com/salttis/dotfiles ~/.dotfiles
+cd ~/.dotfiles
+./run.sh
+```

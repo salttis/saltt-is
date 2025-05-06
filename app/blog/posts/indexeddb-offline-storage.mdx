@@ -1,0 +1,176 @@
+---
+title: IndexedDB — Offline Storage & Sync in the Browser
+summary: Learn how to use IndexedDB for offline storage, background sync, and file handling directly in the browser.
+publishedAt: "2025-01-12"
+---
+
+# IndexedDB
+
+## Offline Storage & Sync in the Browser
+
+IndexedDB is one of the most underutilized but powerful browser features available to frontend developers. If you’ve ever needed to make your web app work offline, persist user data locally, or cache media files — you’ve likely run into its name.
+
+This post is a recap of my Frontend Friday session where I covered the fundamentals, demonstrated common use cases, and showed how to use IndexedDB for things like offline form handling and even file storage.
+
+## What is IndexedDB?
+
+IndexedDB is a **low-level NoSQL database** built into modern browsers. It allows you to:
+
+- Store large amounts of structured or binary data
+- Run **asynchronous operations** using transactions
+- Work with multiple object stores (like tables in SQL)
+
+Unlike `localStorage`, which only supports simple key-value pairs and is synchronous, IndexedDB is designed for **scalable and performant local storage**.
+
+## Why Use IndexedDB?
+
+Here’s why IndexedDB is worth learning:
+
+- Supports **offline-first applications**
+- Works well for **caching** data or app state
+- Can store **files** like images and documents
+- Enables **background sync** when the user goes online again
+
+It’s especially useful in Progressive Web Apps (PWAs), or any system where you want the frontend to function independently of the backend for a while.
+
+## Core Concepts
+
+- **Object Stores** – Like tables in a relational DB, hold data records.
+- **Indexes** – Optional, used for fast lookups.
+- **Transactions** – All reads/writes are done inside transactions.
+- **Event-based API** – Often awkward, but manageable with wrappers.
+
+Compared to `localStorage` or `sessionStorage`, IndexedDB handles complex structured data and doesn’t block the main thread.
+
+## Demo 1: Storing & Retrieving Data
+
+Open a database and create an object store:
+
+```js
+const request = indexedDB.open("MyDatabase", 1);
+request.onupgradeneeded = (event) => {
+  const db = event.target.result;
+  db.createObjectStore("users", { keyPath: "id", autoIncrement: true });
+};
+```
+
+Add data:
+
+```js
+function addUser(name, age) {
+  const transaction = db.transaction("users", "readwrite");
+  const store = transaction.objectStore("users");
+  store.add({ name, age });
+}
+```
+
+Retrieve data:
+
+```js
+function getUsers() {
+  const transaction = db.transaction("users", "readonly");
+  const store = transaction.objectStore("users");
+  const request = store.getAll();
+  request.onsuccess = () => console.log(request.result);
+}
+```
+
+You can inspect the results via Chrome DevTools → Application → IndexedDB.
+
+## Demo 2: Offline Form Submission
+
+Let’s simulate submitting a form while offline.
+
+Store data locally:
+
+```js
+function saveFormOffline(data) {
+  const transaction = db.transaction("pendingRequests", "readwrite");
+  const store = transaction.objectStore("pendingRequests");
+  store.add(data);
+}
+```
+
+Sync when back online:
+
+```js
+window.addEventListener("online", syncDataToServer);
+
+function syncDataToServer() {
+  const transaction = db.transaction("pendingRequests", "readonly");
+  const store = transaction.objectStore("pendingRequests");
+  const request = store.getAll();
+
+  request.onsuccess = async () => {
+    for (const data of request.result) {
+      await fetch("/api/submit", {
+        method: "POST",
+        body: JSON.stringify(data),
+      });
+    }
+    // Optionally, clear after sync
+  };
+}
+```
+
+This pattern works great for offline forms, carts, and check-ins.
+
+## Demo 3: File Storage in IndexedDB
+
+Store an image:
+
+```js
+function storeFile(file) {
+  const transaction = db.transaction("files", "readwrite");
+  const store = transaction.objectStore("files");
+
+  const reader = new FileReader();
+  reader.onload = () => {
+    store.add({ id: file.name, data: reader.result });
+  };
+  reader.readAsArrayBuffer(file);
+}
+```
+
+Retrieve it:
+
+```js
+function getFile(filename) {
+  const transaction = db.transaction("files", "readonly");
+  const store = transaction.objectStore("files");
+  const getRequest = store.get(filename);
+
+  getRequest.onsuccess = () => {
+    const blob = new Blob([getRequest.result.data], { type: "image/png" });
+    document.getElementById("image").src = URL.createObjectURL(blob);
+  };
+}
+```
+
+Useful for offline media apps or caching assets during install time.
+
+## Best Practices & Limitations
+
+- **Index frequently used fields** for faster lookups
+- Use [idb](https://github.com/jakearchibald/idb) or [Dexie](https://dexie.org/) to simplify API
+- Store metadata in IndexedDB, use **Cache API** for large files
+- Clean up old data periodically
+- IndexedDB is **not encrypted**, and is scoped per origin
+
+The biggest hurdle is the **verbose, async API**, but libraries make it easier.
+
+## Summary
+
+- IndexedDB is a **browser-native, scalable, async database**
+- It enables **offline-first workflows** and smart caching
+- It can store both structured and binary data
+- Works well in **PWAs** and heavy frontend applications
+
+If your app needs to store more than strings, or support offline capabilities, IndexedDB is the tool to learn.
+
+## Further Resources
+
+- [MDN: IndexedDB API](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)
+- [Google Developers: IndexedDB Best Practices](https://web.dev/articles/indexeddb-best-practices-app-state)
+- [Jake Archibald’s idb library](https://github.com/jakearchibald/idb)
+- [Dexie.js](https://dexie.org/)
