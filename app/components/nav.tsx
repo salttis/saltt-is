@@ -7,7 +7,7 @@ const navItems = {
   "/blog": {
     name: "blog",
   },
-  "/cv-juri-saltbacka.pdf": {
+  "/Juri Saltbacka CV 2025.pdf": {
     name: "CV",
     target: "_blank",
     rel: "noopener noreferrer",
